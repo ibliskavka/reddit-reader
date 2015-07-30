@@ -19,7 +19,9 @@ namespace RedditReader.Tester
             {
                 foreach (var redditItem in x.Result)
                 {
-                    Console.WriteLine(redditItem.Title);
+                    Console.WriteLine("{0}:\t{1}"
+                        , (string.IsNullOrWhiteSpace(redditItem.Thumbnail)) ? "TEXT" : "IMAGE"
+                        , redditItem.Title);
                 }
             });
 

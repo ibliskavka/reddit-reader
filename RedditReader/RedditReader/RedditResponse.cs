@@ -21,7 +21,7 @@ namespace RedditReader
             
 
             Items = new List<RedditItem>();
-            foreach (var item in channel.Elements("item").Where(i => i.Element(Ns.Media + "thumbnail") != null))
+            foreach (var item in channel.Elements("item"))
             {
                 Items.Add(new RedditItem(item));
             }

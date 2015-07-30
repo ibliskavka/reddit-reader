@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Linq;
 using System.Xml.Linq;
+using HtmlAgilityPack;
 
 namespace RedditReader
 {
     public class RedditItem
     {
         public string Title { get; set; }
-        public string Link { get; set; }
+        public string RedditLink { get; set; }
 
         public string Guid { get; set; }
         public DateTime PubDate { get; set; }
@@ -16,7 +17,7 @@ namespace RedditReader
 
         public string Description { get; set; }
 
-        public string Image { get; set; }
+        public string ExternalLink { get; set; }
 
         public RedditItem()
         {
@@ -27,7 +28,7 @@ namespace RedditReader
             : this()
         {
             Title = (string) item.Element("title");
-            Link = (string) item.Element("link");
+            RedditLink = (string) item.Element("link");
             Guid = (string) item.Element("guid");
 
             if (!string.IsNullOrEmpty(Guid))
@@ -44,8 +45,6 @@ namespace RedditReader
             }
 
             PubDate = Utility.XmlToDate((string) item.Element("pubDate"));
-            
-            Description = (string) item.Element("description");
 
             var thumbnailNode = item.Element(Ns.Media + "thumbnail");
             if (thumbnailNode != null)
@@ -53,14 +52,33 @@ namespace RedditReader
                 Thumbnail = (string)thumbnailNode.Attribute("url");
             }
 
-            if (!string.IsNullOrWhiteSpace(Description))
+            //Parse out the description node.
+            var descriptionText = (string) item.Element("description");
+            if (!string.IsNullOrWhiteSpace(descriptionText))
             {
-                var desc = XDocument.Parse(Description).Root;
-                var links = desc.Descendants("a");
-                var imageLink = links.FirstOrDefault(e => (string) e == "[link]");
-                if (imageLink != null)
+                var desc = new HtmlDocument();
+                desc.LoadHtml(descriptionText);
+
+                var links = desc.DocumentNode.Descendants("a");
+
+                var linkNode = links.FirstOrDefault(e => e.InnerText == "[link]");
+                if (linkNode != null)
                 {
-                    Image = (string)imageLink.Attribute("href");
+                    ExternalLink = (string)linkNode.GetAttributeValue("href", "");
+                }
+
+                if (!string.IsNullOrWhiteSpace(Thumbnail))
+                {
+                    //This is a image link
+                    Description = "";
+                }
+                else
+                {
+                    //This is a text link
+                    Description =
+                        desc.DocumentNode.Descendants("div")
+                            .Single(x => x.GetAttributeValue("class", "") == "md")
+                            .InnerText;
                 }
             }
         }

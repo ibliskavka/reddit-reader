@@ -10,6 +10,7 @@ namespace RedditReader
 {
     public class RedditClient
     {
+        private readonly bool _mustHaveThumbnails;
         private const string BASE_PATH = "http://reddit.com";
         private readonly List<string> _sources;
         
@@ -17,6 +18,12 @@ namespace RedditReader
         private int _currentPosition = 0;
         private readonly int _pageSize;
         private string _after = null;
+
+        public RedditClient(int pageSize, bool mustHaveThumbnails)
+            : this(pageSize)
+        {
+            _mustHaveThumbnails = mustHaveThumbnails;
+        }
 
         public RedditClient(int pageSize)
         {
@@ -56,11 +63,8 @@ namespace RedditReader
             var response = new RedditResponse(xDoc.Root);
 
             _after = response.Items.Last().Guid;
-
-            //Remove non jpeg/png images. Add your own filter if you like.
-            var query = response.Items.Where(q => !string.IsNullOrWhiteSpace(q.Thumbnail) && Regex.IsMatch(q.Image, "\\.(?:jpe?g|png)$"));
-
-            return query;
+            
+            return response.Items;
         }
     }
 }
