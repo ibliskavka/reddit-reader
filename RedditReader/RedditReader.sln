@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedditReader.Tester", "RedditReader.Tester\RedditReader.Tester.csproj", "{172446CE-2DCC-4B31-BD24-1C7B0847BFD5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{38CA1F39-A843-4D98-ABE6-1EB6427DCB55}"
+	ProjectSection(SolutionItems) = preProject
+		..\README.md = ..\README.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedditReader", "RedditReader\RedditReader.csproj", "{73ED4A33-F293-49D9-900C-16D414BA99C4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{172446CE-2DCC-4B31-BD24-1C7B0847BFD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{172446CE-2DCC-4B31-BD24-1C7B0847BFD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{172446CE-2DCC-4B31-BD24-1C7B0847BFD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{172446CE-2DCC-4B31-BD24-1C7B0847BFD5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73ED4A33-F293-49D9-900C-16D414BA99C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73ED4A33-F293-49D9-900C-16D414BA99C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73ED4A33-F293-49D9-900C-16D414BA99C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73ED4A33-F293-49D9-900C-16D414BA99C4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
